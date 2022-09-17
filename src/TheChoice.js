@@ -1,9 +1,12 @@
+
 import shadowMan from "./robots/shadowMan.jpg";
 import snakeMan from "./robots/snakeMan.jpg";
 import magnetMan from "./robots/magnetMan.jpg";
 import sparkMan from "./robots/sparkMan.jpg";
 
 function TheChoice({ choose, chooseRobot, ROBOTS, chooseEnemy }) {
+
+
   if (choose) {
     return (
       <div>
@@ -17,7 +20,7 @@ function TheChoice({ choose, chooseRobot, ROBOTS, chooseEnemy }) {
             <h4>{ROBOTS[0].attack}</h4>
             </div>            
             <img src={shadowMan} alt="Shadow Man" />
-            <button onClick={chooseRobot} name="Shadow Man">
+            <button onClick={chooseRobot} name="Shadow Man" >
               Choose your robot
             </button>
           </div>

@@ -128,7 +128,7 @@ img {
 }
 
 #displayInfo {
-  margin: 2rem auto;
+  margin: 1rem auto;
   width: 100%;  
   background-color: #3c4350a4;
   color: white;
@@ -152,9 +152,28 @@ span{
   
 }
 
+#missed{
+  color: #cb5343;
+}
 
+#damage{
+  color: red;
+}
 
+#shadowManLog{
+  color: #2c9cfe;
+}
 
+#heal{
+  color: #77e510;
+}
+#infoTurn{
+  font-size: 1.2rem;
+  color: lightcoral;
+  margin: 0;
+  padding: 0;
+  
+}
 
 
 

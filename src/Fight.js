@@ -1,70 +1,48 @@
-import { useState } from "react";
-import shadowMan from "./robots/shadowMan.jpg";
-import snakeMan from "./robots/snakeMan.jpg";
-import magnetMan from "./robots/magnetMan.jpg";
-import sparkMan from "./robots/sparkMan.jpg";
+import { useContext, useState } from "react";
+import Player1 from "./Player1";
+import Player2 from "./Player2";
+import ChoiceContext from "./Context/ChoiceContext";
+import ChoiceContext2 from "./Context/ChoiceContext2";
+import HPContextProvider from "./Context/HPContextProvider";
 
 function Fight({ fightBox, ROBOTS }) {
-  /*   console.log(fightBox); */
-  /*   let shadowManHp = 120;
-  let snakeManHo = 100;
-  let magnetManHo = 130;
-  let sparkManHp = 110; */
-
-  const shadowDamage = 30;
-  const magnetDamage = 20;
-
   const [battleLog, setBattleLog] = useState([]);
 
   const [robot0, setRobot0] = useState(fightBox[0]);
   const [robot1, setRobot1] = useState(fightBox[1]);
+  const [currentTurn, setCurrentTurn] = useState(0);
 
   for (let i = 0; i < ROBOTS.length; i++) {
     if (robot0 === ROBOTS[i].name) {
       setRobot0(ROBOTS[i]);
     }
-    /*     console.log(robot0); */
   }
 
   for (let i = 0; i < ROBOTS.length; i++) {
     if (robot1 === ROBOTS[i].name) {
       setRobot1(ROBOTS[i]);
     }
-    /*    console.log(robot1); */
   }
 
-  const initialHealth0 = robot0.hp;
-  const initialHealth1 = robot1.hp;
-  console.log(robot0.hp, robot1.hp);
-  const [robotHealth0, setRobotHealth0] = useState(initialHealth0);
-  const [robotHealth1, setRobotHealth1] = useState(initialHealth1);
-  console.log(initialHealth0, initialHealth0);
-  console.log(robotHealth0, robotHealth1);
-  const shadowAttack = (e) => {
-    e.preventDefault();
-    let result = robot1.hp - shadowDamage;
-    setRobotHealth1(result);
+/*   const [robotHealth0, setRobotHealth0] = useState(0);
+  const [robotHealth1, setRobotHealth1] = useState(0);
 
-    setBattleLog([
-      <li key={battleLog}>
-        {robot0.name} did {shadowDamage} damage to {robot1.name}
-      </li>,
-      ...battleLog,
-    ]);
-  };
+  for (let i = 0; i < ROBOTS.length; i++) {
+    if (robot0 === ROBOTS[i].name) {
+      setRobotHealth0(ROBOTS[i].hp);
+    }
+  }
 
-  const magnetAttack = (e) => {
-    e.preventDefault();
-    let result = robot0.hp - magnetDamage;
-    setRobotHealth0(result);
+  for (let i = 0; i < ROBOTS.length; i++) {
+    if (robot1 === ROBOTS[i].name) {
+      setRobotHealth1(ROBOTS[i].hp);
+    }
+  }
 
-    setBattleLog([
-      <li key={battleLog}>
-        {robot1.name} did {magnetDamage} damage to {robot0.name}
-      </li>,
-      ...battleLog,
-    ]);
-  };
+  console.log(robotHealth0, robotHealth1); */
+
+  const chosen1 = useContext(ChoiceContext);
+  const chosen2 = useContext(ChoiceContext2);
 
   function pageReset() {
     window.location.reload(false);
@@ -75,56 +53,48 @@ function Fight({ fightBox, ROBOTS }) {
       <h1>
         [{fightBox[0]} <span>vs</span> {fightBox[1]}]
       </h1>
+      {
+        <h4>
+          Turns made: {currentTurn}
+          <p id="infoTurn">(hit chance could randomly decrease after ~10th turn)</p>
+        </h4>
+      }
 
-      <div id="info">
-        <div id="infoLeft">
-          <section>
-            {robot0.name === "Shadow Man" && (
-              <img src={shadowMan} alt="Shadow Man" />
-            )}
-            {robot0.name === "Snake Man" && (
-              <img src={snakeMan} alt="Snake Man" />
-            )}
-            {robot0.name === "Magnet Man" && (
-              <img src={magnetMan} alt="Magnet Man" />
-            )}
-            {robot0.name === "Spark Man" && (
-              <img src={sparkMan} alt="Spark Man" />
-            )}
-          </section>
-          <h2>{robotHealth0} hp</h2>
-          <h2>{robot0.attack}</h2>
-          <button onClick={shadowAttack}>Shadow Attack</button>
+      <HPContextProvider>
+        <div id="info">
+          <div id="infoLeft">
+            <section>
+              <p>Player 1:</p>
+              <Player1
+                chosen1={chosen1}
+                setCurrentTurn={setCurrentTurn}
+                setBattleLog={setBattleLog}
+                currentTurn={currentTurn}
+                battleLog={battleLog}
+              />
+            </section>
+          </div>
+          <div id="displayInfo">
+            <h4> Battle Log: </h4>
+
+            {battleLog}
+            <p>Battle begin!</p>
+          </div>
+          <div id="infoRight">
+            <section>
+              <p>Player 2:</p>
+              <Player2
+                chosen2={chosen2}
+                setCurrentTurn={setCurrentTurn}
+                setBattleLog={setBattleLog}
+                currentTurn={currentTurn}
+                battleLog={battleLog}
+              />
+            </section>
+          </div>
         </div>
-        <div id="displayInfo">
-          <h4> Battle Log: </h4>
-
-          {battleLog}
-          <p>Battle begin!</p>
-        </div>
-        <div id="infoRight">
-          <section>
-            {robot1.name === "Shadow Man" && (
-              <img src={shadowMan} alt="Shadow Man" />
-            )}
-            {robot1.name === "Snake Man" && (
-              <img src={snakeMan} alt="Snake Man" />
-            )}
-            {robot1.name === "Magnet Man" && (
-              <img src={magnetMan} alt="Magnet Man" />
-            )}
-            {robot1.name === "Spark Man" && (
-              <img src={sparkMan} alt="Spark Man" />
-            )}
-          </section>
-          <h2>{robotHealth1} hp</h2>
-
-          <h2>{robot1.attack}</h2>
-          <button onClick={magnetAttack}>Magnet Attack</button>
-        </div>
-      </div>
-
-      <button onClick={pageReset} id="reset">
+      </HPContextProvider>
+      <button onClick={() => pageReset()} id="reset">
         Restart Game
       </button>
     </div>
