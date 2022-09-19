@@ -24,7 +24,7 @@ function Fight({ fightBox, ROBOTS }) {
     }
   }
 
-/*   const [robotHealth0, setRobotHealth0] = useState(0);
+  /*   const [robotHealth0, setRobotHealth0] = useState(0);
   const [robotHealth1, setRobotHealth1] = useState(0);
 
   for (let i = 0; i < ROBOTS.length; i++) {
@@ -50,13 +50,15 @@ function Fight({ fightBox, ROBOTS }) {
 
   return (
     <div>
-      <h1>
+      <h1 className="headerFight">
         [{fightBox[0]} <span id="vs">vs</span> {fightBox[1]}]
       </h1>
       {
         <h4>
           Turns made: {currentTurn}
-          <p id="infoTurn">(hit chance could randomly decrease after ~10th turn)</p>
+          <p id="infoTurn">
+            (hit chance could randomly decrease after ~10th turn)
+          </p>
         </h4>
       }
 
@@ -78,7 +80,7 @@ function Fight({ fightBox, ROBOTS }) {
             <h4> Battle Log: </h4>
 
             {battleLog}
-            <p>Battle begin!</p>
+            <p className="battleBegin">Battle begin!</p>
           </div>
           <div id="infoRight">
             <section>

@@ -19,14 +19,25 @@ const Player1 = ({
     window.location.reload(false);
   }
 
-
-
   if (chosen1 === "Shadow Man" && hpPlayer1 <= 30) {
-    alert("Shadow man lost!");
+    alert("Player 1 - Shadow man lost!");
     pageReset();
   }
 
-  /* + 3 additional conditions */
+  if (chosen1 === "Magnet Man" && hpPlayer1 <= 25) {
+    alert("Player 1 - Magnet man lost!");
+    pageReset();
+  }
+
+  if (chosen1 === "Snake Man" && hpPlayer1 <= 40) {
+    alert("Player 1 - Snake man lost!");
+    pageReset();
+  }
+
+  if (chosen1 === "Spark Man" && hpPlayer1 <= 35) {
+    alert("Player 1 - Spark man lost!");
+    pageReset();
+  }
 
   if (chosen1 === "Shadow Man") {
     return (

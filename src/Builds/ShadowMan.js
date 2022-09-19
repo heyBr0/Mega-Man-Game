@@ -20,7 +20,7 @@ const ShadowMan = ({
   function shadowBladesAttack() {
     if (shadowBlades === 1) {
       setShadowBlades(0);
-      setHpPlayer2(hpPlayer2 - 40);
+      setHpPlayer2(hpPlayer2 - 35);
       setCurrentTurn(currentTurn + 1);
       setBattleLog([
         <li key={battleLog}>
@@ -47,7 +47,8 @@ const ShadowMan = ({
       setCurrentTurn(currentTurn + 1);
       setBattleLog([
         <li key={battleLog}>
-          Shadow man healed <span id="heal"> +20</span> hp
+          <span id="shadowManLog">Shadow Man</span> healed{" "}
+          <span id="heal"> +20</span> hp
         </li>,
         ...battleLog,
       ]);
@@ -94,11 +95,9 @@ const ShadowMan = ({
     }
   };
 
-  if (hpPlayer1 <= 80) {
+  if (hpPlayer1 <= 70) {
     redHealth.style.color = "red";
   }
-
-  /*  console.log(hitChance); */
 
   return (
     <div>

@@ -19,23 +19,23 @@ function App() {
     },
     {
       name: "Snake Man",
-      hp: 100,
+      hp: 110,
       attack: "Snake canon",
       heals: 2,
       hitChance : 90
     },
     {
       name: "Magnet Man",
-      hp: 130,
+      hp: 125,
       attack: "Magnet rocket",
       heals: 1,
-      hitChance : 75
+      hitChance : 70
     },
     {
       name: "Spark Man",
-      hp: 110,
+      hp: 115,
       attack: "Spark shock",
-      heals: 2,
+      heals: 1,
       hitChance : 85
     },
   ];

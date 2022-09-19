@@ -15,6 +15,30 @@ const Player2 = ({
   const [hpPlayer1, hpPlayer2, setHpPlayer1, setHpPlayer2] =
     useContext(HPContext);
 
+  function pageReset() {
+    window.location.reload(false);
+  }
+
+  if (chosen2 === "Shadow Man" && hpPlayer2 <= 30) {
+    alert("Player 2 - Shadow man lost!");
+    pageReset();
+  }
+
+  if (chosen2 === "Magnet Man" && hpPlayer2 <= 25) {
+    alert("Player 2 - Magnet man lost!");
+    pageReset();
+  }
+
+  if (chosen2 === "Snake Man" && hpPlayer2 <= 40) {
+    alert("Player 2 - Snake man lost!");
+    pageReset();
+  }
+
+  if (chosen2 === "Spark Man" && hpPlayer2 <= 35) {
+    alert("Player 2 - Spark man lost!");
+    pageReset();
+  }
+
   if (chosen2 === "Shadow Man") {
     return (
       <ShadowMan2
