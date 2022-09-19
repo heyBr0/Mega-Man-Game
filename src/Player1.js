@@ -19,6 +19,8 @@ const Player1 = ({
     window.location.reload(false);
   }
 
+
+
   if (chosen1 === "Shadow Man" && hpPlayer1 <= 30) {
     alert("Shadow man lost!");
     pageReset();

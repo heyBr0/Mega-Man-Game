@@ -13,6 +13,32 @@ const ShadowMan = ({
 }) => {
   const [healCount, setHealCount] = useState(1);
   const [hitChance, setHitChance] = useState(80);
+  const [shadowBlades, setShadowBlades] = useState(1);
+  let redHitChance = document.getElementById("redHitChance");
+  let redHealth = document.getElementById("redHealth");
+
+  function shadowBladesAttack() {
+    if (shadowBlades === 1) {
+      setShadowBlades(0);
+      setHpPlayer2(hpPlayer2 - 40);
+      setCurrentTurn(currentTurn + 1);
+      setBattleLog([
+        <li key={battleLog}>
+          <span id="shadowManLog">Shadow Man</span> used
+          <strong> Shadow Blades! </strong>
+          <span id="damage"> -40</span> damage to the enemy
+        </li>,
+        ...battleLog,
+      ]);
+    } else {
+      setCurrentTurn(currentTurn);
+      setBattleLog([
+        <li key={battleLog}>No more Shadow Blades!</li>,
+        ...battleLog,
+      ]);
+      alert("No more Shadow Blades!");
+    }
+  }
 
   function heal() {
     if (healCount === 1) {
@@ -47,6 +73,7 @@ const ShadowMan = ({
       ]);
     } else if (currentTurn >= 9 && random <= hitChance) {
       setHitChance(65);
+      redHitChance.style.color = "red";
       setHpPlayer2(hpPlayer2 - 20);
       setCurrentTurn(currentTurn + 1);
       setBattleLog([
@@ -67,20 +94,34 @@ const ShadowMan = ({
     }
   };
 
-  console.log(hitChance);
+  if (hpPlayer1 <= 80) {
+    redHealth.style.color = "red";
+  }
+
+  /*  console.log(hitChance); */
 
   return (
     <div>
       <img src={shadowMan} alt="Shadow Man" />
       <h3>Current stats:</h3>
-      <p>Health: {hpPlayer1 - 30}</p>
+      <p id="redHealth">Health: {hpPlayer1 - 30}</p>
       <p>Heals: {healCount} </p>
-      <p>Hit chance: {hitChance}% </p>
+      <p>Shadow Blades: {shadowBlades}</p>
+      <p>
+        Hit chance: <span id="redHitChance">{hitChance}%</span>{" "}
+      </p>
       <div>
         {currentTurn % 2 === 0 && (
           <div>
-            <button onClick={heal}>Heal</button>
-            <button onClick={attackPlayer1}>Attack</button>
+            <button className="healButton" onClick={heal}>
+              Heal
+            </button>
+            <button className="standardAttack" onClick={attackPlayer1}>
+              Attack
+            </button>
+            <button className="shadowBlades" onClick={shadowBladesAttack}>
+              Shadow Blades
+            </button>
           </div>
         )}
       </div>

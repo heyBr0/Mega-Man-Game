@@ -51,7 +51,7 @@ function Fight({ fightBox, ROBOTS }) {
   return (
     <div>
       <h1>
-        [{fightBox[0]} <span>vs</span> {fightBox[1]}]
+        [{fightBox[0]} <span id="vs">vs</span> {fightBox[1]}]
       </h1>
       {
         <h4>

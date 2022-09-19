@@ -45,6 +45,12 @@ function RobotMaster({
       <button onClick={pageReset} id="reset">
         Reset
       </button>
+      <aside id="heyBro">
+        Game made by
+        <a href="https://github.com/heyBr0" target="_blank" rel="noreferrer">
+          heyBro
+        </a>
+      </aside>
     </div>
   );
 }
