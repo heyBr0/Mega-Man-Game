@@ -305,4 +305,7 @@ button {
   #displayInfo {
     display: none;
   }
+  img{
+    width: 100px;
+  }
 }

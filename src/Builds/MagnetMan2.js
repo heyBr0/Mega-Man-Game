@@ -1,5 +1,10 @@
 import magnetMan from "../robots/magnetMan.jpg";
 import { useState } from "react";
+import magnetBlasterSound from "../Audio/magnetBlaster.wav";
+import standardAttack from "../Audio/standardAttack.wav";
+import healingSound from "../Audio/healing.wav";
+import noMoreSound from "../Audio/noMore.wav";
+import missedSound from "../Audio/missed.wav";
 
 const MagnetMan2 = ({
   setCurrentTurn,
@@ -17,11 +22,42 @@ const MagnetMan2 = ({
   let redHitChance2 = document.getElementById("redHitChance2");
   let redHealth2 = document.getElementById("redHealth2");
 
+  function playMagnetBlaster() {
+    const selectAudio = new Audio(magnetBlasterSound);
+    selectAudio.volume = 0.4;
+    selectAudio.play();
+  }
+
+  function playStandardAttack() {
+    const selectAudio = new Audio(standardAttack);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playHealing() {
+    const selectAudio = new Audio(healingSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playNoMore() {
+    const selectAudio = new Audio(noMoreSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playMissed() {
+    const selectAudio = new Audio(missedSound);
+    selectAudio.volume = 0.4;
+    selectAudio.play();
+  }
+
   function MagnetRocketAttack() {
     if (magnetRocket === 1) {
       setMagnetRocket(0);
       setHpPlayer1(hpPlayer1 - 35);
       setCurrentTurn(currentTurn + 1);
+      playMagnetBlaster();
       setBattleLog([
         <li key={battleLog}>
           <span id="magnetManLog">Magnet Man</span> used
@@ -32,11 +68,12 @@ const MagnetMan2 = ({
       ]);
     } else {
       setCurrentTurn(currentTurn);
+      playNoMore();
       setBattleLog([
         <li key={battleLog}>No more Magnet Rocket!</li>,
         ...battleLog,
       ]);
-      alert("No more Magnet Rocket!");
+      /*      alert("No more Magnet Rocket!"); */
     }
   }
 
@@ -45,6 +82,7 @@ const MagnetMan2 = ({
       setHealCount(0);
       setHpPlayer2(hpPlayer2 + 10);
       setCurrentTurn(currentTurn + 1);
+      playHealing();
       setBattleLog([
         <li key={battleLog}>
           <span id="magnetManLog">Magnet Man</span> healed{" "}
@@ -54,9 +92,10 @@ const MagnetMan2 = ({
       ]);
     } else {
       setHpPlayer2(hpPlayer2);
+      playNoMore();
       setCurrentTurn(currentTurn);
       setBattleLog([<li key={battleLog}>No more heals!</li>, ...battleLog]);
-      alert("You have no more heals!");
+      /*      alert("You have no more heals!"); */
     }
   }
 
@@ -65,6 +104,7 @@ const MagnetMan2 = ({
     if (random <= hitChance && currentTurn < 9) {
       setHpPlayer1(hpPlayer1 - 30);
       setCurrentTurn(currentTurn + 1);
+      playStandardAttack();
       setBattleLog([
         <li key={battleLog}>
           <span id="magnetManLog">Magnet Man</span> did
@@ -77,6 +117,7 @@ const MagnetMan2 = ({
       redHitChance2.style.color = "red";
       setHpPlayer1(hpPlayer1 - 30);
       setCurrentTurn(currentTurn + 1);
+      playStandardAttack();
       setBattleLog([
         <li key={battleLog}>
           <span id="magnetManLog">Magnet Man</span>did
@@ -86,6 +127,7 @@ const MagnetMan2 = ({
       ]);
     } else {
       setCurrentTurn(currentTurn + 1);
+      playMissed();
       setBattleLog([
         <li key={battleLog} id="missed">
           Magnet man missed the shot!

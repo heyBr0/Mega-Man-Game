@@ -1,5 +1,10 @@
 import snakeMan from "../robots/snakeMan.jpg";
 import { useState } from "react";
+import snakeBlasterSound from "../Audio/snakeBlaster.wav";
+import standardAttack from "../Audio/standardAttack.wav";
+import healingSound from "../Audio/healing.wav";
+import noMoreSound from "../Audio/noMore.wav";
+import missedSound from "../Audio/missed.wav";
 
 const SnakeMan = ({
   setCurrentTurn,
@@ -17,10 +22,41 @@ const SnakeMan = ({
   let redHitChance = document.getElementById("redHitChance");
   let redHealth = document.getElementById("redHealth");
 
+  function playSnakeBlaster() {
+    const selectAudio = new Audio(snakeBlasterSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playStandardAttack() {
+    const selectAudio = new Audio(standardAttack);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playHealing() {
+    const selectAudio = new Audio(healingSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playNoMore() {
+    const selectAudio = new Audio(noMoreSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
+  function playMissed() {
+    const selectAudio = new Audio(missedSound);
+    selectAudio.volume = 0.4;
+    selectAudio.play();
+  }
+
   function snakeCanonAttack() {
     if (snakeCanon === 1) {
       setSnakeCanon(0);
       setHpPlayer2(hpPlayer2 - 35);
+      playSnakeBlaster();
       setCurrentTurn(currentTurn + 1);
       setBattleLog([
         <li key={battleLog}>
@@ -32,19 +68,21 @@ const SnakeMan = ({
       ]);
     } else {
       setCurrentTurn(currentTurn);
+      playNoMore();
       setBattleLog([
         <li key={battleLog}>No more Snake Canon!</li>,
         ...battleLog,
       ]);
-      alert("No more Snake Canon!");
+      /*    alert("No more Snake Canon!"); */
     }
   }
 
   function heal() {
     if (healCount > 0) {
-      setHealCount(healCount => healCount - 1);
+      setHealCount((healCount) => healCount - 1);
       setHpPlayer1(hpPlayer1 + 20);
       setCurrentTurn(currentTurn + 1);
+      playHealing();
       setBattleLog([
         <li key={battleLog}>
           <span id="snakeManLog">Snake Man</span> healed
@@ -54,9 +92,10 @@ const SnakeMan = ({
       ]);
     } else {
       setHpPlayer1(hpPlayer1);
+      playNoMore();
       setCurrentTurn(currentTurn);
       setBattleLog([<li key={battleLog}>No more heals!</li>, ...battleLog]);
-      alert("You have no more heals!");
+      /*   alert("You have no more heals!"); */
     }
   }
 
@@ -65,6 +104,7 @@ const SnakeMan = ({
     if (random <= hitChance && currentTurn < 9) {
       setHpPlayer2(hpPlayer2 - 15);
       setCurrentTurn(currentTurn + 1);
+      playStandardAttack();
       setBattleLog([
         <li key={battleLog}>
           <span id="snakeManLog">Snake Man</span> did
@@ -77,6 +117,7 @@ const SnakeMan = ({
       redHitChance.style.color = "red";
       setHpPlayer2(hpPlayer2 - 15);
       setCurrentTurn(currentTurn + 1);
+      playStandardAttack();
       setBattleLog([
         <li key={battleLog}>
           <span id="snakeManLog">Snake Man</span>did
@@ -86,6 +127,7 @@ const SnakeMan = ({
       ]);
     } else {
       setCurrentTurn(currentTurn + 1);
+      playMissed();
       setBattleLog([
         <li key={battleLog} id="missed">
           Snake man missed the shot!

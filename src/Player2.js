@@ -4,6 +4,7 @@ import SnakeMan2 from "./Builds/SnakeMan2";
 import SparkMan2 from "./Builds/SparkMan2";
 import { useContext } from "react";
 import HPContext from "./Context/HPcontext";
+import endGameSound from "./Audio/endgame.wav";
 
 const Player2 = ({
   chosen2,
@@ -15,28 +16,46 @@ const Player2 = ({
   const [hpPlayer1, hpPlayer2, setHpPlayer1, setHpPlayer2] =
     useContext(HPContext);
 
+  function playEndGame() {
+    const selectAudio = new Audio(endGameSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
+  }
+
   function pageReset() {
     window.location.reload(false);
   }
 
   if (chosen2 === "Shadow Man" && hpPlayer2 <= 30) {
-    alert("Player 2 - Shadow man lost!");
-    pageReset();
+    playEndGame();
+    setTimeout(() => {
+      alert("Player 2 - Shadow man lost!");
+      pageReset();
+    }, 500);
   }
 
   if (chosen2 === "Magnet Man" && hpPlayer2 <= 25) {
-    alert("Player 2 - Magnet man lost!");
-    pageReset();
+    playEndGame();
+    setTimeout(() => {
+      alert("Player 2 - Magnet man lost!");
+      pageReset();
+    }, 500);
   }
 
   if (chosen2 === "Snake Man" && hpPlayer2 <= 40) {
-    alert("Player 2 - Snake man lost!");
-    pageReset();
+    playEndGame();
+    setTimeout(() => {
+      alert("Player 2 - Snake man lost!");
+      pageReset();
+    }, 500);
   }
 
   if (chosen2 === "Spark Man" && hpPlayer2 <= 35) {
-    alert("Player 2 - Spark man lost!");
-    pageReset();
+    playEndGame();
+    setTimeout(() => {
+      alert("Player 2 - Spark man lost!");
+      pageReset();
+    }, 500);
   }
 
   if (chosen2 === "Shadow Man") {

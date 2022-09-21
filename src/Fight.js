@@ -4,6 +4,7 @@ import Player2 from "./Player2";
 import ChoiceContext from "./Context/ChoiceContext";
 import ChoiceContext2 from "./Context/ChoiceContext2";
 import HPContextProvider from "./Context/HPContextProvider";
+import resetSound from "./Audio/reset.mp3";
 
 function Fight({ fightBox, ROBOTS }) {
   const [battleLog, setBattleLog] = useState([]);
@@ -24,28 +25,20 @@ function Fight({ fightBox, ROBOTS }) {
     }
   }
 
-  /*   const [robotHealth0, setRobotHealth0] = useState(0);
-  const [robotHealth1, setRobotHealth1] = useState(0);
-
-  for (let i = 0; i < ROBOTS.length; i++) {
-    if (robot0 === ROBOTS[i].name) {
-      setRobotHealth0(ROBOTS[i].hp);
-    }
+  function playReset() {
+    const selectAudio = new Audio(resetSound);
+    selectAudio.volume = 0.3;
+    selectAudio.play();
   }
-
-  for (let i = 0; i < ROBOTS.length; i++) {
-    if (robot1 === ROBOTS[i].name) {
-      setRobotHealth1(ROBOTS[i].hp);
-    }
-  }
-
-  console.log(robotHealth0, robotHealth1); */
 
   const chosen1 = useContext(ChoiceContext);
   const chosen2 = useContext(ChoiceContext2);
 
   function pageReset() {
-    window.location.reload(false);
+    playReset();
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 500);
   }
 
   return (
